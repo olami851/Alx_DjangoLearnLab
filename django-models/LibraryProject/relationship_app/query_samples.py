@@ -17,4 +17,4 @@ def list_all_books_in_a_library(library_name):
 
 def get_librarian_for_a_library(library_name):
     library = Library.objects.get(name=library_name)
-    return library.Librarian()
+    return Librarian.objects.get(library=library)
