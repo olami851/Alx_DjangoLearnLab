@@ -10,9 +10,7 @@ from django.contrib.auth import login
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth.decorators import user_passes_test
-from .templates.relationship_app import admin_view
-from .templates.relationship_app import librarian_view
-from .templates.relationship_app import member_view
+
 
 
 def list_books(request):
@@ -37,7 +35,7 @@ def admin_check(user):
 
 @user_passes_test(admin_check)
 def admin_view(request):
-    return render(request, 'admin_view.html')
+    return render(request, 'relationship_app/admin_view.html')
 
 # librarian_view
 
@@ -46,7 +44,7 @@ def librarian_check(user):
 
 @user_passes_test(librarian_check)
 def librarian_view(request):
-    return render(request, 'librarian_view.html')
+    return render(request, 'relationship_app/librarian_view.html')
 
 # member_view
 
@@ -55,4 +53,4 @@ def member_check(user):
 
 @user_passes_test(member_check)
 def member_view(request):
-    return render(request, 'member_view.html')
+    return render(request, 'relationship_app/member_view.html')
