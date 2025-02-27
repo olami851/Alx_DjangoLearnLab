@@ -10,6 +10,9 @@ from django.contrib.auth import login
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth.decorators import user_passes_test
+from .templates.relationship_app import admin_view
+from .templates.relationship_app import librarian_view
+from .templates.relationship_app import member_view
 
 
 def list_books(request):
