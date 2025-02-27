@@ -52,4 +52,4 @@ def member_check(user):
 
 @user_passes_test(member_check)
 def member_view(request):
-    return render(reuest, 'member_view.html')
+    return render(request, 'member_view.html')
