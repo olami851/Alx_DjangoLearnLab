@@ -32,7 +32,7 @@ class SignUpView(CreateView):
 def admin_check(user):
     return user.userprofile.role == 'Admin'
 
-@ user_passes_test(admin_check)
+@user_passes_test(admin_check)
 def admin_view(request):
     return render(request, 'admin_view.html')
 
@@ -41,7 +41,7 @@ def admin_view(request):
 def librarian_check(user):
     return user.userprofile.role == 'Librarian'
 
-@ user_passes_test(librarian_check)
+@user_passes_test(librarian_check)
 def librarian_view(request):
     return render(request, 'librarian_view.html')
 
