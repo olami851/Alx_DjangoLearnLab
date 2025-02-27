@@ -30,6 +30,15 @@ class Librarian(models.Model):
     def __str__(self):
         return self.name
     
-
-# create a new user
-# user = User.objects.create(username='Olami', email='abdhamid851@gmail.com', password='14051702')
+class UserProfile(models.Model):
+    Role_choices = [
+        ('Admin', 'Admin'),
+        ('Librarian', 'Librarian'),
+        ('Member', 'Member'),
+    ]
+    
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    role = models.CharField(max_length=50, choices=Role_choices)
+    
+    def __str__(self):
+        return f"{self.user.username}'s profile"
