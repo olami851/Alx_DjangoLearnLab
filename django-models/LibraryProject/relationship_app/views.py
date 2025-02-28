@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from .models import Book
 from .models import Library
@@ -10,8 +10,9 @@ from django.contrib.auth import login
 from django.contrib.auth.views import LoginView
 from django.contrib.auth.views import LogoutView
 from django.contrib.auth.decorators import user_passes_test
-
-
+from django.contrib.auth.decorators import permission_required
+from django.contrib.auth.forms import AuthenticationForm
+from relationship_app.forms import BookForm 
 
 def list_books(request):
     books = Book.objects.all()
@@ -54,3 +55,41 @@ def member_check(user):
 @user_passes_test(member_check)
 def member_view(request):
     return render(request, 'relationship_app/member_view.html')
+
+
+# view to add a book
+@permission_required('relationship_app.can_add_book')
+def add_book(request):
+    if request.method == 'POST':
+        form = BookForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('book_list')
+        
+    else:
+        form = BookForm()
+        return render(request, 'relationship_app/add_book.html'{'book':book})
+    
+# view to edit a book
+@permission_required('relationship_app.can_change_book')
+def edit_book(request, pk):
+    book =get_object_or_404(Book, pk=pk)
+    if request.method == 'post':
+        form =BookForm(request.POST, instance=book)
+        if form.is_valid():
+            form.save()
+            return redirect('book_list')
+        
+    else:
+        form =BookForm(isinstance=book)
+    return render(request, 'relationship_app/edit_book.html'{'book':book})
+
+
+# View to delete a book
+@permission_required('relationship_app.can_delete_book')
+def delete_book(request, pk):
+    book = get_object_or_404(Book, pk=pk)
+    if request.method == 'POST':
+        book.delete()
+        return redirect('book_list')
+    return render(request, 'relationship_app/delete_book.html', {'book': book})
