@@ -15,12 +15,12 @@ class Book(models.Model):
     
    
 class CustomUserManager(BaseUserManager):
-    def create_user(self, username = None, email = None, date_of_birth = None, password=None,profile_photo = None):
+    def create_user(self, username = None, email = None, date_of_birth = None, password=None, profile_photo = None):
         pass
         
      
-    def create_supertuser(self):
-      pass
+    def create_superuser(self):
+        pass
       
 class CustomUser(AbstractUser):
     date_of_birth = models.DateField(null=True)
