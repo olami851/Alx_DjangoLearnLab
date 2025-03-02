@@ -48,12 +48,12 @@ class UserProfile(models.Model):
         ('Member', 'Member'),
     ]
     
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='relationship_userprofile')
     role = models.CharField(max_length=50, choices=Role_choices)
     
     def __str__(self):
         return f"{self.user.username}'s profile"
     
 class Profile(models.Model):
-    user = models.OneToOneField(settings, AUTH_USER_MODEL, on_delete=models.CASCADE)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     bio = models.TextField()

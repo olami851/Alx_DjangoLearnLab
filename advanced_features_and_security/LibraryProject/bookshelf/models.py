@@ -15,33 +15,31 @@ class Book(models.Model):
     
    
 class CustomUserManager(BaseUserManager):
-    def create_user(self, email, date_of_birth, password=None, **kwargs):
+    def create_user(self, username = None, email = None, date_of_birth = None, password=None,profile_photo = None):
+        pass
         
-        if not email:
-            raise ValueError('Email field is required...')
-        
-        email = self.normalize_email(email)
-        user = self.model(email=email, data_of_birth=date_of_birth, **kwargs )
-        user.set_password(password)
-        user.save(using=self._db)
-        
-        return user
-    
-    def create_supertuser(self, email, date_of_birth, password=None, **kwarg):
-        user = self.create_user(email, date_of_birth, password)
-        
-        user.is_staff = True
-        user.is_superuser = True
-        user.save(using=self._db)
-        
-        return user
-
+     
+    def create_supertuser(self):
+      pass
+      
 class CustomUser(AbstractUser):
     date_of_birth = models.DateField(null=True)
     profile_photo = models.ImageField(upload_to='profile_photo/', null=True, blank=True)
     
-    EMAIL_FIELD = 'email'
-    USERNAME_FIELD = 'username'
-    REQUIRED_FIELDS = ['date_of_birth', 'profile_photo']
+    def __str__(self):
+        return self.username, self.email
     
-    objects = CustomUserManager()
+class UserProfile(models.Model):
+        
+    Role_choices = [
+            ('Admin', 'Admin'),
+            ('Librarian', 'Librarian'),
+            ('Member', 'Member'),
+        ]
+    
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, related_name='bookshelf_userprofile')
+    role = models.CharField(max_length=50, choices=Role_choices)
+    
+    def __str__(self):
+        return self.username
+    
