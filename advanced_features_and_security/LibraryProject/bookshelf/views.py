@@ -1,7 +1,9 @@
 from django.shortcuts import render
-
 from django.http import HttpResponse
 from django.contrib.auth.decorators import permission_required
+from .forms import LoginForm
+from django.contrib.auth import authenticate, login
+from django
 
 # Create your views here.
 
@@ -15,3 +17,14 @@ def book_list(request):
         {'id':2, 'title': 'django', 'author': 'femi'},
     ]
     return render(request, 'bookshelf/view.html', {'all_books': all_books})
+
+def login_user(request):
+    if request.method == 'POST':
+        form = LoginForm(request.POST)
+        
+        if form.is_valid():
+            email = form.cleaned_data['email']
+            password = form.cleaned_data['password']
+            
+            
+            

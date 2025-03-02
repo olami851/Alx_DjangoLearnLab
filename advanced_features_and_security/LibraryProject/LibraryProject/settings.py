@@ -23,9 +23,33 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-unt3r8t(#4$)5c)+mzh@v6l@ux+@5qr(6c+ig+n=6$w_n@2a)6'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+SECURE_BROWSER_XSS_FILTER = True
+
+X_FRAME_OPTIONS = True
+
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+CSRF_COOKIE_SECURE = True
+
+SESSION_COOKIE_SECURE = True
+
+SECURE_SSL_REDIRECT = True
+
+SECURE_PROXY_SSL_HEADER = True
+
+HTTP_X_FORWARDED_PROTO = True
+
+SECURE_HSTS_SECONDS = 31536000  # Enforce HTTPS for one year.
+
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True  # Apply HSTS to all subdomains.
+
+SECURE_HSTS_PRELOAD = True  # Enable HSTS preload; register your domain with browser vendors.
+
+CSP_DEFAULT_SRC = ("'self'",)
+
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
@@ -43,6 +67,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'csp.middleware.CSPMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
