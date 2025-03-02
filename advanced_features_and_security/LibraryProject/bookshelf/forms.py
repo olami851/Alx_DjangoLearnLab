@@ -5,4 +5,3 @@ class LoginForm(forms.Form):
     password = forms.CharField(widget=forms.PasswordInput)
     template_name = 'bookshelf/form_example.html'
     
-    
