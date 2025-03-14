@@ -21,7 +21,7 @@ class AuthorSerializer(serializers.ModelSerializer):
     """
         AuthorSerializer: this includes the name field and also a nested BookSerializer. 
     """
-    books = BookSerializer(many=True, read_only= True)
+    books = BookSerializer(many=True, read_only=True)
     
     class Meta:
         model = Author
