@@ -1,5 +1,5 @@
 from django.test import APITestCase
-from .models import Book, Author
+from .models import Book, Author, User
 from rest_framework.test import APIClient
 from rest_framework import status
 from datetime import date
@@ -8,6 +8,8 @@ from datetime import date
 class BookTestCase(APITestCase):
     def setUp(self):
         self.client = APIClient
+        self.user = User.objects.create_user(username='testuser', password='testpass')
+        self.client.login(username='testuser', password='testpass')  # Explicitly log in
         self.author = Author.objects.create(name="H.A. Adebanjo")
         self.book_data = {
             'title': 'A Comprehensive Guide To JavaScript',
