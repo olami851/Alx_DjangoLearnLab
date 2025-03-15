@@ -13,7 +13,7 @@ class BookSerializer(serializers.ModelSerializer):
         
     def validate_publication_year(self, value):
         current_year = date.today().year
-        if value > current_year
+        if value > current_year:
             raise serializers.ValidationError(f"Publication year {value} can not be in the future....")
         return value
         
