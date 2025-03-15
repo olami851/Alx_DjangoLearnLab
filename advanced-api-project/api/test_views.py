@@ -1,11 +1,11 @@
-from django.test import TestCase
+from django.test import APITestCase
 from .models import Book, Author
 from rest_framework.test import APIClient
 from rest_framework import status
 from datetime import date
 
 
-class BookTestCase(TestCase):
+class BookTestCase(APITestCase):
     def setUp(self):
         self.client = APIClient
         self.author = Author.objects.create(name="H.A. Adebanjo")
