@@ -1,0 +1,27 @@
+
+<html>
+    <head>
+        {% comment %} <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href=""> {% endcomment %}
+    </head>
+    <body>
+     
+        <h1>Register Now</h1>
+
+        <form method="POST" autocomplete="off">
+            {% csrf_token %}
+
+            {{registerform.as_p}}
+
+            <input type="submit" name="Register"/>
+
+        </form>
+
+        
+        {% comment %} <script src="" async defer></script> {% endcomment %}
+    </body>
+</html>
