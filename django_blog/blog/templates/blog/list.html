@@ -1,0 +1,17 @@
+<html>
+
+    <!-- Iterate over object_list -->
+    {% for object in object_list%}
+
+    <!-- Display Objects -->
+    <li>{{ object.title }}</li>
+    <li>{{ object.title }}</li>
+    <li>{{ object.title }}</li>
+
+    <hr/>
+
+    {% empty %}
+    <li>No objects to display yet.</li>
+    {% endfor %}
+
+</html>
