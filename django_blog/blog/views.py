@@ -51,17 +51,17 @@ def user_profile(request):
     
 class PostListView(ListView):
     model = Post
-    template_name = 'blog/list.html'
+    template_name = 'blog/listing.html'
     
 
 class PostDetailView(DetailView):
     model = Post
-    template_name = 'blog/detail.html'
+    template_name = 'blog/viewing.html'
     
     
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    template_name = 'blog/create.html'
+    template_name = 'blog/creating.html'
     fields = ['title', 'content', 'author']
     
     def form_valid(self, form):
@@ -75,7 +75,7 @@ class UserLoginView(LoginView):
     
 class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Post
-    template_name = 'blog/update.html'
+    template_name = 'blog/editing.html'
     fields = ['title', 'content']
     
     def form_valid(self, form):
@@ -90,7 +90,7 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     
 class PostDeleteView(UserPassesTestMixin, LoginRequiredMixin, DeleteView):
     model = Post
-    template_name = 'blog/delete.html'
+    template_name = 'blog/deleting.html'
     success_url = reverse_lazy('post-list')
     
     def test_func(self):
