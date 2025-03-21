@@ -4,11 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Creating Blog{% endblock %}</title>
+    <title>{% block title %}Creating Blog Post{% endblock %}</title>
+    {% load static%}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-    <header>
+    {% comment %} <header>
         <nav>
             <ul>
                 <li><a href="{% url 'home' %}">Home</a></li>
@@ -17,7 +18,7 @@
                 <li><a href="{% url 'register' %}">Register</a></li>
             </ul>
         </nav>
-    </header>
+    </header> {% endcomment %}
 
     <div class="content">
         {% block content %}
