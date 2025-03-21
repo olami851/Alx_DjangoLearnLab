@@ -1,41 +1,10 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Viewing Blog Post{% endblock %}</title>
-    {% load static%}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-</head>
-{% comment %} <body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'posts' %}">Blog Posts</a></li>
-                <li><a href="{% url 'login' %}">Login</a></li>
-                <li><a href="{% url 'register' %}">Register</a></li>
-            </ul>
-        </nav>
-    </header> {% endcomment %}
-
-    <div class="content">
-        {% block content %}
-        <!-- Page-specific content goes here -->
-        <h1>{{ object.title}}</h1>
-
-        <h2>{{ object.author}}</h2>
-
-        <p>{{ object.content}}</p>
-
-        {% endblock %}
-    </div>
-
-    <footer>
-        <p>&copy; 2024 Django Blog</p>
-    </footer>
-
-    <script src="{% static 'js/scripts.js' %}"></script>
-</body>
-</html>
+{% extends "blog/base.html" %}
+{% block content %}
+  <h2>{{ post.title }}</h2>
+  <p>{{ post.content }}</p>
+  <p>Author: {{ post.author }}</p>
+  <p>Published on: {{ post.date_posted }}</p>
+  <a href="{% url 'post-update' post.pk %}">Edit</a>
+  <a href="{% url 'post-delete' post.pk %}">Delete</a>
+{% endblock %}

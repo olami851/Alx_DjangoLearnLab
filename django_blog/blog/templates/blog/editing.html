@@ -1,45 +1,13 @@
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Creating Blog Post{% endblock %}</title>
-    {% load static%}
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-</head>
-<body>
-    {% comment %} <header>
-        <nav>
-            <ul>
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'posts' %}">Blog Posts</a></li>
-                <li><a href="{% url 'login' %}">Login</a></li>
-                <li><a href="{% url 'register' %}">Register</a></li>
-            </ul>
-        </nav>
-    </header> {% endcomment %}
-
-    <div class="content">
-        {% block content %}
-        <!-- Page-specific content goes here -->
-        <form method="POST">
-
-            {% csrf_token%}
-
-            {{ form.as_p}}
-
-            <input type="submit" value="Save">
-
-         </form>
-
-        {% endblock %}
-    </div>
-
-    <footer>
-        <p>&copy; 2024 Django Blog</p>
-    </footer>
-
-    <script src="{% static 'js/scripts.js' %}"></script>
-</body>
-</html>
+{% extends "blog/base.html" %}
+{% block content %}
+  <h2>{% if form.instance.pk %}Edit{% else %}Create{% endif %} Post</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">{% if form.instance.pk %}Save changes{% else %}Create{% endif %}</button>
+  </form>
+  {% comment %}
+  <p>This is a comment and will not be rendered in the HTML output.</p>
+  {% endcomment %}
+{% endblock %}
