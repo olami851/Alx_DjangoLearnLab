@@ -1,0 +1,14 @@
+
+{% extends "blog/base.html" %}
+{% block content %}
+  <h2>{% if form.instance.pk %}Edit{% else %}Create{% endif %} Comment</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    
+    <button type="submit">{% if form.instance.pk %}Save changes{% else %}Create{% endif %}</button>
+  </form>
+  {% comment %}
+  <p>This is a comment and will not be rendered in the HTML output.</p>
+  {% endcomment %}
+{% endblock %}
