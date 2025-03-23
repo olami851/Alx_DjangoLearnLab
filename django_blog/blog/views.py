@@ -15,6 +15,7 @@ from django.contrib.auth.decorators import login_required
 from .models import Comment
 from .forms import CommentForm
 
+
 # Create your views here.
 
 def homepage(request):
@@ -103,8 +104,8 @@ class PostDetailView(DetailView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context("comments") = self.object.comments.all()
-        context("form") = CommentForm()
+        context("comments") == self.object.comments.all()
+        context("form") == CommentForm()
         return context
     
     

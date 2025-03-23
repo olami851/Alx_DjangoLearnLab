@@ -3,9 +3,10 @@ from django.contrib.auth.models import User
 from django import forms
 from .models import Post
 from .models import Comment
+from .models import Tag
 
 class CreateUserForm(UserCreationForm):
-    
+       
     class Meta:
         model = User
         field = ['username', 'email', 'password1', 'password2']
@@ -14,9 +15,14 @@ class CreateUserForm(UserCreationForm):
         
 class PostForm(forms.ModelForm):
     
+    tags = forms.ModelMultipleChoiceField(
+        queryset=Tag.objects.all(),
+        required=False
+    )
+    
     class Meta:
         model = Post
-        fields = ['title', 'content', 'author']
+        fields = ['title', 'content', 'author', 'tags']
         
 class CommentForm(forms.ModelForm):
     
