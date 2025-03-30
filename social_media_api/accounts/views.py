@@ -6,7 +6,10 @@ from .serializers import UserRegistrationSerializer
 from .serializers import UserLoginSerializer
 from .serializers import UserSerializer
 from django.contrib.auth.models import User
-from rest_framework.authtoken import RefreshToken
+from rest_framework.permissions import AllowAny
+from .models import CustomUser
+# import RefreshToken # type: ignore
+# from rest_framework_simplejwt.token import RefreshToken
 
 # Create your views here.
 class UserRegistrationView(APIView):
@@ -29,13 +32,13 @@ class UserLoginView(APIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data
-        refresh = RefreshToken.for_user(user)
-        return Response({
-            'refresh': str(refresh),
-            'access': str(refresh.access_token),})
+        # refresh = RefreshToken.for_user(user)
+        # return Response({
+        #     'refresh': str(refresh),
+        #     'access': str(refresh.access_token),})
         
 class UserDetailView(generics.RetrieveAPIView):
-    queryset = User.objects.all()
+    queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
 
     def get_object(self):
