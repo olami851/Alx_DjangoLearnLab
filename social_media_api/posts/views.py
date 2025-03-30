@@ -12,7 +12,7 @@ from notifications.models import Notification
 from django.contrib.auth import get_user_model
 from rest_framework.response import Response
 from rest_framework.views import APIView
-
+from django.shortcuts import get_object_or_404
 # Create your views here.
 
 User = get_user_model()
@@ -61,13 +61,14 @@ class LikePostView(APIView):
     
     permission_classes = [permissions.IsAuthenticated]
     
-
     def post(self, request, *args, **kwargs):
-        post = Post.objects.get(id=kwargs['post_id'])
+        post = get_object_or_404(Post, pk=pk)
+        # post = Post.objects.get(id=kwargs['post_id'])
         user = request.user
+        
         if Like.objects.filter(post=post, user=user).exists():
             return Response({"detail": "You have already liked this post."}, status=status.HTTP_400_BAD_REQUEST)
-        Like.objects.create(post=post, user=user)
+        Like.objects.get_or_create(user=request.user, post=post)
         Notification.objects.create(
             recipient=post.author,
             actor=user,
