@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     # 'pillow',
     'rest_framework.authtoken',
     'posts',
-    'django-filters',
+    'django_filters',
+    'rest_framework_simplejwt',
 ]
 
 MIDDLEWARE = [
@@ -140,11 +141,27 @@ REST_FRAMEWORK = {
 
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 100,  # You can adjust the page size as needed
+    'PAGE_SIZE': 10,  # You can adjust the page size as needed
+}
+
+# REST_FRAMEWORK = {
+#     'DEFAULT_PAGINATION_CLASS': 'posts.pagination.StandardResultsSetPagination',
+#     'PAGE_SIZE': 10,
+# }
+
+REST_FRAMEWORK = {
+    # 'DEFAULT_PAGINATION_CLASS': 'posts.pagination.StandardResultsSetPagination',
+    # 'PAGE_SIZE': 10,
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticated',
+    ],
 }
 
 AUTH_USER_MODEL = 'accounts.CustomUser'
 
-REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'apps.core.pagination.StandardResultsSetPagination'
-}
+# REST_FRAMEWORK = {
+#     'DEFAULT_PAGINATION_CLASS': 'apps.core.pagination.StandardResultsSetPagination'
+# }
