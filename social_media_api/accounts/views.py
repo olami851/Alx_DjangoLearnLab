@@ -49,7 +49,7 @@ class UserDetailView(generics.GenericAPIView):
         return self.request.user
             
 class FollowUserView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
         user_to_follow = User.objects.get(username=kwargs['username'])
@@ -59,7 +59,7 @@ class FollowUserView(APIView):
         return Response({"detail": f"You are now following {user_to_follow.username}."}, status=status.HTTP_200_OK)
 
 class UnfollowUserView(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated]
 
     def post(self, request, *args, **kwargs):
         user_to_unfollow = User.objects.get(username=kwargs['username'])
