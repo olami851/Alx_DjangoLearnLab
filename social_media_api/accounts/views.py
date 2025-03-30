@@ -41,7 +41,7 @@ class UserLoginView(APIView):
         #     'refresh': str(refresh),
         #     'access': str(refresh.access_token),})
         
-class UserDetailView(generics.RetrieveAPIView):
+class UserDetailView(generics.GenericAPIView):
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
 
