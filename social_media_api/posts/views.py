@@ -54,15 +54,13 @@ class FeedView(generics.ListAPIView):
         following_users = user.following.all()
         return Post.objects.filter(author__in=following_users).order_by('-created_at')
     
-    
-
-    
+ 
 class LikePostView(APIView):
     
     permission_classes = [permissions.IsAuthenticated]
     
     def post(self, request, *args, **kwargs):
-        post = get_object_or_404(Post, pk=pk)
+        post = generics.get_object_or_404(Post, pk=pk)
         # post = Post.objects.get(id=kwargs['post_id'])
         user = request.user
         
