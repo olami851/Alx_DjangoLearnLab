@@ -12,7 +12,7 @@ from django.contrib.auth.views import LogoutView
 from django.contrib.auth.decorators import user_passes_test
 from django.contrib.auth.decorators import permission_required
 from django.contrib.auth.forms import AuthenticationForm
-from relationship_app.forms import BookForm 
+from relationship_app.forms import BookForm  # type: ignore
 
 def list_books(request):
     books = Book.objects.all()
