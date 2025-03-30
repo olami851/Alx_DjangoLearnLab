@@ -12,6 +12,7 @@ from rest_framework.permissions import AllowAny
 from .models import CustomUser
 from rest_framework import permissions
 from rest_framework.permissions import IsAuthenticated
+from notifications.models import Notification
 # import RefreshToken # type: ignore
 # from rest_framework_simplejwt.token import RefreshToken
 
@@ -48,6 +49,7 @@ class UserDetailView(generics.GenericAPIView):
     def get_object(self):
         return self.request.user
             
+
 class FollowUserView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
@@ -56,6 +58,12 @@ class FollowUserView(APIView):
         if user_to_follow == request.user:
             return Response({"detail": "You cannot follow yourself."}, status=status.HTTP_400_BAD_REQUEST)
         request.user.following.add(user_to_follow)
+        Notification.objects.create(
+            recipient=user_to_follow,
+            actor=request.user,
+            verb='followed',
+            target=user_to_follow
+        )
         return Response({"detail": f"You are now following {user_to_follow.username}."}, status=status.HTTP_200_OK)
 
 class UnfollowUserView(APIView):
@@ -66,6 +74,10 @@ class UnfollowUserView(APIView):
         if user_to_unfollow == request.user:
             return Response({"detail": "You cannot unfollow yourself."}, status=status.HTTP_400_BAD_REQUEST)
         request.user.following.remove(user_to_unfollow)
+        Notification.objects.create(
+            recipient=user_to_unfollow,
+            actor=request.user,
+            verb='unfollowed',
+            target=user_to_unfollow
+        )
         return Response({"detail": f"You have unfollowed {user_to_unfollow.username}."}, status=status.HTTP_200_OK)
-
-    

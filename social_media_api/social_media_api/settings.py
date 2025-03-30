@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'posts',
     'django_filters',
     'rest_framework_simplejwt',
+    'notifications',
 ]
 
 MIDDLEWARE = [
