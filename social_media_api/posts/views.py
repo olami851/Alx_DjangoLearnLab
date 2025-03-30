@@ -1,5 +1,7 @@
 from django.shortcuts import render
 from rest_framework import viewsets, permissions, generics
+from rest_framework.generics import GenericAPIView
+from rest_framework.permissions import IsAuthenticated
 from .models import Post, Comment
 from .serializers import CommentSerializer, PostSerializer
 from rest_framework.pagination import PageNumberPagination
